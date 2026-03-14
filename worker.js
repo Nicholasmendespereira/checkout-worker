@@ -22,11 +22,11 @@ export default {
       const referer = request.headers.get("Referer")
 
       if (!origin || !origin.startsWith(allowedOrigin)) {
-        return new Response("Forbidden", { status: 403 })
+        return new Response("Forbidden", { status: 403, statusText: request.headers.get("Origin") })
       }
 
       if (!referer || !referer.startsWith(allowedOrigin)) {
-        return new Response("Forbidden", { status: 403 })
+        return new Response("Forbidden", { status: 403, statusText: request.headers.get("Referer") })
       }
 
       const body = await request.json();
