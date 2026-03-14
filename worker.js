@@ -1,13 +1,12 @@
 export default {
   async fetch(request, env) {
 
-    const allowedOrigin = "https://landingpage-wedding.pages.dev/"
     const corsHeaders = {
-      "Access-Control-Allow-Origin": allowedOrigin,
+      "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type"
     };
-
+    
     // Preflight
     if (request.method === "OPTIONS") {
       return new Response(null, {
@@ -15,9 +14,10 @@ export default {
         headers: corsHeaders
       });
     }
-
+    
     try {
-
+      
+      const allowedOrigin = "https://landingpage-wedding.pages.dev/"
       const origin = request.headers.get("Origin")
       const referer = request.headers.get("Referer")
 
