@@ -17,7 +17,8 @@ export default {
     
     try {
       
-      const allowedOrigin = "https://landingpage-wedding.pages.dev/"
+      const allowedOrigin = "https://landingpage-wedding.pages.dev"
+      const allowedReferer = "https://landingpage-wedding.pages.dev/"
       const origin = request.headers.get("Origin")
       const referer = request.headers.get("Referer")
 
@@ -25,7 +26,7 @@ export default {
         return new Response("Forbidden", { status: 403, statusText: request.headers.get("Origin") })
       }
 
-      if (!referer || !referer.startsWith(allowedOrigin)) {
+      if (!referer || !referer.startsWith(allowedReferer)) {
         return new Response("Forbidden", { status: 403, statusText: request.headers.get("Referer") })
       }
 
