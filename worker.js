@@ -1,8 +1,9 @@
 export default {
   async fetch(request, env) {
 
+    const allowedOrigin = "https://landingpage-wedding.pages.dev/"
     const corsHeaders = {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": allowedOrigin,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type"
     };
@@ -16,6 +17,17 @@ export default {
     }
 
     try {
+
+      const origin = request.headers.get("Origin")
+      const referer = request.headers.get("Referer")
+
+      if (!origin || !origin.startsWith(allowedOrigin)) {
+        return new Response("Forbidden", { status: 403 })
+      }
+
+      if (!referer || !referer.startsWith(allowedOrigin)) {
+        return new Response("Forbidden", { status: 403 })
+      }
 
       const body = await request.json();
 
