@@ -25,7 +25,8 @@ export default {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "access_token": env.ASAAS_TOKEN
+            "access_token": env.ASAAS_TOKEN,
+            "User-Agent": "cloudflare-worker"
           },
           body: JSON.stringify(body)
         }
