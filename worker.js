@@ -27,7 +27,6 @@ export default {
             "Content-Type": "application/json",
             "access_token": env.ASAAS_TOKEN,
             "User-Agent": "cloudflare-worker"
-
           },
           body: JSON.stringify(body)
         }
