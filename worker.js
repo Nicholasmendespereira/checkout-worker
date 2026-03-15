@@ -16,18 +16,18 @@ export default {
     }
     
     try {
-      
+
       const allowedOrigin = "https://landingpage-wedding.pages.dev"
       const allowedReferer = "https://landingpage-wedding.pages.dev/"
       const origin = request.headers.get("Origin")
       const referer = request.headers.get("Referer")
 
       if (!origin || !origin.startsWith(allowedOrigin)) {
-        return new Response("Forbidden", { status: 403, statusText: request.headers.get("Origin") })
+        return new Response("Forbidden", { status: 403 })
       }
 
       if (!referer || !referer.startsWith(allowedReferer)) {
-        return new Response("Forbidden", { status: 403, statusText: request.headers.get("Referer") })
+        return new Response("Forbidden", { status: 403 })
       }
 
       const body = await request.json();
