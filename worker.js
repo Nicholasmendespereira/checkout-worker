@@ -7,18 +7,20 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type"
     };
 
-    // Preflight
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: corsHeaders });
     }
 
     const url = new URL(request.url);
 
-    // ── Rotas do KV (sem verificação de origin, são internas) ──────────────
+    // ── Rotas KV — ficam ANTES de qualquer validação ──────────────────────
     if (url.pathname === "/api/gifts" && request.method === "GET") {
       const id = url.searchParams.get("id");
       const data = await env.WEDDING_GIFTS.get(`gift:${id}`, "json");
-      return Response.json(data ?? { contributed: 0, total: 0 }, { headers: corsHeaders });
+      return Response.json(
+        data ?? { contributed: 0, total: 0 },
+        { headers: corsHeaders }
+      );
     }
 
     if (url.pathname === "/api/gifts/contribute" && request.method === "POST") {
@@ -29,7 +31,7 @@ export default {
       return Response.json(updated, { headers: corsHeaders });
     }
 
-    // ── Rota do Asaas (com verificação de origin) ──────────────────────────
+    // ── Rota Asaas — validação de origin só aqui ──────────────────────────
     try {
       const allowedOrigin = "https://landingpage-wedding.pages.dev";
       const allowedReferer = "https://landingpage-wedding.pages.dev/";
