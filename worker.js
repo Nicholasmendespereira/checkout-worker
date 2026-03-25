@@ -48,7 +48,7 @@ export default {
 
       const body = await request.json();
 
-      const response = await fetch("https://api-sandbox.asaas.com/v3/checkouts", {
+      const response = await fetch("https://api.asaas.com/v3/checkouts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
